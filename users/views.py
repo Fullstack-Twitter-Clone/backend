@@ -1,4 +1,4 @@
 from django.shortcuts import render
 
-def home(request):
-    return render('You are at the Users index page')
+def profile(request):
+    return render(request, 'profile.html')

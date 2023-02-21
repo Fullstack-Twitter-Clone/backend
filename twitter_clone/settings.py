@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
-from dotenv import load_dotenv, find_dotenv
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -34,7 +35,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'tweets.apps.TweetsConfig', # ! TODO
     'users.apps.UsersConfig',  # ! TODO
-    
+    'corsheaders',
+    'rest_framework',
+    'debug_toolbar',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,9 +46,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+STATIC_URL = 'static/'
+
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware', # ! TODO
-    
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +58,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
 ]
 
 INTERNAL_IPS = [
@@ -63,10 +72,12 @@ INTERNAL_IPS = [
 
 ROOT_URLCONF = 'twitter_clone.urls'
 
+SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(SETTINGS_PATH, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
