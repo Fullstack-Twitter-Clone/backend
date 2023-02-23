@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+
 import os
 from pathlib import Path
 
@@ -33,10 +34,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'tweets.apps.TweetsConfig', # ! TODO
-    'users.apps.UsersConfig',  # ! TODO
-    'corsheaders',
-    'rest_framework',
     'debug_toolbar',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,6 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'main',
+    # 'main.apps.UsersConfig',
+    # 'main.apps.TweetsConfig',
+    'rest_framework',
+    'corsheaders',
 ]
 
 STATIC_URL = 'static/'
@@ -51,6 +53,7 @@ STATIC_URL = 'static/'
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware'
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
