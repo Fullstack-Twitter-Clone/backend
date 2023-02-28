@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Tweet
+from .models import User, Tweet, Follower
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,3 +33,20 @@ class TweetSerializer(serializers.ModelSerializer):
         instance.content = validated_data.get('content', instance.content)
         instance.save()
         return instance
+    
+    
+class FollowerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Follower
+        fields = ('id', 'user', 'follower', 'follower_at')
+        extra_kwargs = {'user': {'read_only': True}, 'follower': {'read_only': True}}
+    
+    def create(self, validated_data):
+        follower = Follower.objects.create(**validated_data)
+        return follower
+
+    def update(self, instance, validated_data):
+        instance.follower = validated_data.get('follower', instance.follower)
+        instance.save()
+        return instance
+
