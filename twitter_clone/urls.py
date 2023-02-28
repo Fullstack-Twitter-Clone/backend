@@ -17,17 +17,20 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 from main import views
-import debug_toolbar # ! TODO
+import debug_toolbar
 
 router = routers.DefaultRouter()
-# router.register(r'users', views.UserViewSet)
+router.register(r'users', views.UserViewSet) #! TODO FIX
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('main.urls')), # ! TODO MAYBE FIX
     path('home/', include('main.urls')), # ! TODO
-    path('api/', include(router.urls)),
     path('accounts/', include('django.contrib.auth.urls')), # ! TODO
+    path('admin/', admin.site.urls),
+    path('users/', views.UserView.as_view(), name='users'),
+    path('tweets/', views.TweetView.as_view(), name='tweets'),
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     
     path('__debug__/', include(debug_toolbar.urls)),
 ]
