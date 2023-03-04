@@ -84,7 +84,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(SETTINGS_PATH, '../../frontend/public') # ! TODO MAYBE CHANGE
+            os.path.join(SETTINGS_PATH, '../../frontend/public')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
