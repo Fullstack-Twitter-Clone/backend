@@ -47,6 +47,9 @@ class TweetView(APIView):
             return Response({"success": "Tweet '{}' created successfully".format(tweet_saved.content)})
 
 
-def home(response, id):
-    user = User.objects.get(id=id)
-    return HttpResponse("<h1>%s</h1>" % user.username)
+def home(request, id):
+    try:
+        user = User.objects.get(id=id)
+    except User.DoesNotExist:
+        return redirect('/home')
+    return render(request, "home.html", {"user": user})
